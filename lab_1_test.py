@@ -44,7 +44,7 @@ else:
 
 openvmtools_version = subprocess.run("apt list open-vm-tools", capture_output=True, text=True, shell=True)
 
-if "open-vm-tools" and "stable 2:10.3.10-1+deb10u2 amd64" in openvmtools_version.stdout:
+if "open-vm-tools/stable,now 2:10.3.10-1+deb10u2 amd64 [installed]" in openvmtools_version.stdout:
     print("You have installed the latest version of VM-Tools")
     done = done + 1
 else:
