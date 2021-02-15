@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # Import the subprocess module to run commands in shell
 import subprocess
 
