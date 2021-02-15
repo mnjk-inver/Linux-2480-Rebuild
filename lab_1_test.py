@@ -9,14 +9,7 @@ def completion():
     if done == total:
         print(f"{Fore.GREEN}Congratulations you have completed all tasks for this lab!{Style.RESET_ALL}")
 
-
-
-def completion():
-    print("You have completed "+str(done)+" of "+str(total)+" tasks for this lab.")
-    if done == total:
-        print("Congratulations you have completed all tasks for this lab")
-
-
+        
 done = 0
 total = 4
 # get the OS version
