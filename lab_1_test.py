@@ -1,6 +1,14 @@
 # This script will check ITC2480 Lab 1 for successful completion
 # This command will import the OS library allowing linux CLI commands
 import subprocess
+from colorama import Fore
+from colorama import Style
+
+def completion():
+    print("You have completed "+str(done)+" of "+str(total)+" tasks for this lab.")
+    if done == total:
+        print(f"{Fore.GREEN}Congratulations you have completed all tasks for this lab!{Style.RESET_ALL})
+
 
 
 def completion():
