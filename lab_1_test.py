@@ -20,7 +20,7 @@ if "Operating System: Debian GNU/Linux 10 (buster)" in hostnamectl.stdout:
     print("OS is Debian Buster")
     done = done + 1
 else:
-    print("You have installed the wrong distribution")
+    print(f"{Fore.RED}You have installed the wrong distribution!{Style.RESET_ALL}")
 
 # scan for open port
 scan = subprocess.run("/usr/bin/nmap localhost", capture_output=True, text=True, shell=True)
@@ -30,7 +30,7 @@ if "22/tcp    open  ssh" in scan.stdout:
     print("SSH port has been opened")
     done = done + 1
 else:
-    print("SSH is not functional")
+    print(f"{Fore.RED}SSH is not functional!{Style.RESET_ALL}")
 
 # check sudo membership
 username = input("enter your username: ")
@@ -41,7 +41,7 @@ if username in sudoer.stdout:
     print(username+" can execute commands with sudo.")
     done = done + 1
 else:
-    print(username+" is not a member of sudo group.")
+    print(f"{Fore.RED}{username} is not a member of sudo group!{Style.RESET_ALL}")
 
 #check installed version of open-vm-tools
 openvmtools_version = subprocess.run("apt list open-vm-tools", capture_output=True, text=True, shell=True)
