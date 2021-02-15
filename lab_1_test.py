@@ -7,7 +7,7 @@ from colorama import Style
 def completion():
     print("You have completed "+str(done)+" of "+str(total)+" tasks for this lab.")
     if done == total:
-        print(f"{Fore.GREEN}Congratulations you have completed all tasks for this lab!{Style.RESET_ALL})
+        print(f"{Fore.GREEN}Congratulations you have completed all tasks for this lab!{Style.RESET_ALL}")
 
 
 
