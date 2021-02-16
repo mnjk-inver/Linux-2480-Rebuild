@@ -22,10 +22,10 @@ redteam = subprocess.run("stat -c %G /home/jsmith/redteam", capture_output=True,
 if "theplan" and "yours" and "mine" and "ours" in redteam_directory.stdout:
     directories_present = True
     pass
-if ours == "redteam":
+if ours.stdout.strip() == "redteam":
     redteam_ours = True
     pass
-if redteam == 'redteam':
+if redteam.stdout.strip() == 'redteam':
     redteam_redteam = True
     pass
 
