@@ -19,7 +19,7 @@ redteam = subprocess.run("stat -c %G /home/jsmith/redteam", capture_output=True,
 
 # check webmin installation
 webmin_search = subprocess.run("apt-cache policy webmin", capture_output=True, text=True, shell=True)
-webmin_version = subprocess.run("apt-cache policy webmin", capture_output=True, text=True$
+webmin_version = subprocess.run("apt-cache policy webmin", capture_output=True, text=True, shell=True)
 webmin_installed = webmin_version.stdout.splitlines()[1]
 webmin_latest = webmin_version.stdout.splitlines()[2]
 webmin_installed = webmin_installed.split()[1]
