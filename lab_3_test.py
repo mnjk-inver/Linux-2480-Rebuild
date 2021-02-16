@@ -11,22 +11,21 @@ redteam_redteam = False
 redteam_directory = subprocess.run("ls -al /home/jsmith/redteam", capture_output=True, text=True, shell=True)
 
 # grab appropriate values for redteam and ours
-list = subprocess.run("/home/jsmith/redteam/ls -l ours", capture_output=True, text=True, shell=True)
-splitlist = list.stdout.split()
+ours = subprocess.run("stat -c %G /home/jsmith/redteam/ours", capture_output=True, text=True, shell=True)
 
 
 # grab directory listing of jsmith
-jsmith_directory = subprocess.run("/home/jsmith/ls -l redteam", capture_output=True, text=True, shell=True)
-splitlist2 = jsmith_directory.stdout.split()
+redteam = subprocess.run("stat -c %G /home/jsmith/redteam", capture_output=True, text=True, shell=True)
+
 
 
 if "theplan" and "yours" and "mine" and "ours" in redteam_directory.stdout:
     directories_present = True
     pass
-if splitlist[4] == "redteam" and splitlist[9] == "ours":
+if ours == "redteam":
     redteam_ours = True
     pass
-if splitlist[4] == 'redteam' and splitlist2[9] == "redteam":
+if redteam == 'redteam':
     redteam_redteam = True
     pass
 
