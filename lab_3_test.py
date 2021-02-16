@@ -43,7 +43,7 @@ if webmin_latest == webmin_installed:
     pass
 
 def completion():
-    if directories_present and redteam_ours and redteam_redteam is True:
+    if directories_present and redteam_ours and redteam_redteam and webmin is True:
         print("Everything is installed correctly. Great Work!")
     if directories_present is False:
         print("Some required directories are missing.")
