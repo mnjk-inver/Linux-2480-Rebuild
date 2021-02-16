@@ -20,12 +20,15 @@ redteam = subprocess.run("stat -c %G /home/jsmith/redteam", capture_output=True,
 
 
 if "theplan" and "yours" and "mine" and "ours" in redteam_directory.stdout:
+    print("All directories successfully created!")
     directories_present = True
     pass
 if ours.stdout.strip() == "redteam":
+    print("redteam owns /home/jsmith/redteam/ours")
     redteam_ours = True
     pass
 if redteam.stdout.strip() == 'redteam':
+    print("redteam owns /home/jsmith/redteam")
     redteam_redteam = True
     pass
 
