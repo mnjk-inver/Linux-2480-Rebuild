@@ -17,14 +17,15 @@ ours = subprocess.run("stat -c %G /home/jsmith/redteam/ours", capture_output=Tru
 # grab directory listing of jsmith
 redteam = subprocess.run("stat -c %G /home/jsmith/redteam", capture_output=True, text=True, shell=True)
 
-# check webmin installation
-webmin_search = subprocess.run("apt-cache policy webmin", capture_output=True, text=True, shell=True)
+# check webmin installation and format the data
+# webmin_search = subprocess.run("apt-cache policy webmin", capture_output=True, text=True, shell=True)
 webmin_version = subprocess.run("apt-cache policy webmin", capture_output=True, text=True, shell=True)
 webmin_installed = webmin_version.stdout.splitlines()[1]
 webmin_latest = webmin_version.stdout.splitlines()[2]
 webmin_installed = webmin_installed.split()[1]
 webmin_latest = webmin_latest.split()[1]
 
+#check completion of tasks
 if "theplan" and "yours" and "mine" and "ours" in redteam_directory.stdout:
     print("All directories successfully created!")
     directories_present = True
@@ -42,6 +43,7 @@ if webmin_latest == webmin_installed:
     webmin = True
     pass
 
+#give complete not complete results
 def completion():
     if directories_present and redteam_ours and redteam_redteam and webmin is True:
         print("Everything is installed correctly. Great Work!")
