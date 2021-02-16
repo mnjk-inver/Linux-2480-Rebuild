@@ -23,10 +23,10 @@ splitlist2 = jsmith_directory.stdout.split()
 if "theplan" and "yours" and "mine" and "ours" in redteam_directory.stdout:
     directories_present = True
     pass
-if splitlist[32] = "redteam" and splitlist[37] = "ours":
+if splitlist[32] == "redteam" and splitlist[37] = "ours":
     redteam_ours = True
     pass
-if splitlist[86] and [splitlist2[91] = "redteam":
+if splitlist[86] and [splitlist2[91] == "redteam":
     redteam_redteam = True
     pass
 
