@@ -20,10 +20,13 @@ redteam = subprocess.run("stat -c %G /home/jsmith/redteam", capture_output=True,
 # check webmin installation and format the data
 # webmin_search = subprocess.run("apt-cache policy webmin", capture_output=True, text=True, shell=True)
 webmin_version = subprocess.run("apt-cache policy webmin", capture_output=True, text=True, shell=True)
-webmin_installed = webmin_version.stdout.splitlines()[1]
-webmin_latest = webmin_version.stdout.splitlines()[2]
-webmin_installed = webmin_installed.split()[1]
-webmin_latest = webmin_latest.split()[1]
+try:
+    webmin_installed = webmin_version.stdout.splitlines()[1]
+    webmin_latest = webmin_version.stdout.splitlines()[2]
+    webmin_installed = webmin_installed.split()[1]
+    webmin_latest = webmin_latest.split()[1]
+except IndexError:
+    pass
 
 #check completion of tasks
 if "theplan" and "yours" and "mine" and "ours" in redteam_directory.stdout:
@@ -38,9 +41,12 @@ if redteam.stdout.strip() == 'redteam':
     print("redteam owns /home/jsmith/redteam")
     redteam_redteam = True
     pass
-if webmin_latest == webmin_installed:
-    print("You have installed the latest version of Webmin")
-    webmin = True
+try:
+    if webmin_latest == webmin_installed:
+        print("You have installed the latest version of Webmin")
+        webmin = True
+        pass
+except NameError:
     pass
 
 #give complete not complete results
