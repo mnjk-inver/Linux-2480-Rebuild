@@ -27,7 +27,7 @@ else:
 scan = subprocess.run("/usr/bin/nmap localhost", capture_output=True, text=True, shell=True)
 
 # check if string exists in output
-if "22/tcp    open  ssh" in scan.stdout:
+if "22/tcp" in scan.stdout:
     print("SSH port has been opened")
     done = done + 1
 else:
