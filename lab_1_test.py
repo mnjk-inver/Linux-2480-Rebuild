@@ -2,12 +2,14 @@
 # This command will import the OS library allowing linux CLI commands
 import subprocess
 
+print()
 
 def completion():
+    print()
     print("You have completed "+str(done)+" of "+str(total)+" tasks for this lab.")
     if done == total:
         print("Congratulations you have completed all tasks for this lab")
-
+    print()
 
 done = 0
 total = 4
