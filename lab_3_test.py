@@ -2,6 +2,7 @@
 # Import the subprocess module to run commands in shell
 import subprocess
 
+print()
 # Used for telling the user what is installed and not installed at the end
 directories_present = False
 redteam_ours = False
@@ -51,7 +52,9 @@ except NameError:
 
 #give complete not complete results
 def completion():
+    print()
     if directories_present and redteam_ours and redteam_redteam and webmin is True:
+        print()
         print("Everything is installed correctly. Great Work!")
     if directories_present is False:
         print("Some required directories are missing.")
