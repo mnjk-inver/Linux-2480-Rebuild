@@ -44,7 +44,7 @@ if redteam.stdout.strip() == 'redteam':
     pass
 try:
     if webmin_latest == webmin_installed:
-        print("You have installed the latest version of Webmin")
+        print("You have installed Webmin")
         webmin = True
         pass
 except NameError:
@@ -63,6 +63,6 @@ def completion():
     if redteam_redteam is False:
         print("redteam is not the owner of /home/jsmith/redteam.")
     if webmin is False:
-        print("The latest version of Webmin is not installed correctly.")
+        print("Webmin is not installed correctly.")
 
 completion()
