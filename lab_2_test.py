@@ -57,6 +57,6 @@ if os.path.exists(tar):
 	print("4. The ~/sample-files/shakespeare.tar.gz file exists.")
 	done = done + 1
 else:
-	print("4. The ~/sample-files/shakespeare.tar.gz file does not exist.")
+	print("4. Try again. The ~/sample-files/shakespeare.tar.gz file does not exist.")
 
 completion()
