@@ -6,7 +6,7 @@ import subprocess
 import os
 
 def completion():
-   print()
+    print()
     print("You have completed "+str(done)+" of "+str(total)+" tasks for this lab.")
     if done == total:
         print("Congratulations you have completed all tasks for this lab")
