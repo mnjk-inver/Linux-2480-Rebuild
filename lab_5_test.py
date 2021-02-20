@@ -38,7 +38,7 @@ Index_file = os.path.exists('/var/www/html/index.html')
 print(Index_file)
 #database checking ideas
 #check for tail redirection file
-logtail_file = os.path.isfile('/home/+UserName+/logtail.txt/')
+logtail_file = os.path.isfile('/home/+UserName+/logtail.txt')
 
 print(logtail_file)
 print(UserName)
