@@ -42,14 +42,11 @@ print(pingstatus)
 #Request information from index.html file to verify custom link page
 #database checking ideas
 #check for tail redirection file
-logtail_file = os.path.exists(os.path.join('/home/',UserName,'/logtail.txt/'))
-test = subprocess.run("stat -c %G /home/"+UserName+"/logtail.txt", capture_output=True, text=True, shell=True)
-if test.stdout.strip() == 'logfile.txt':
-    print("logfile exists")
+logtail_file = os.path.isfile('/home/+UserName+/logtail.txt/')
 
 print(logtail_file)
 print(UserName)
-print(test)
+
 
 #check to see if PHP, MySQL, MariaDB packages are installed and latest version
 #check if installed package versions is latest version as of 2/19/2021
