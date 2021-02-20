@@ -35,6 +35,8 @@ print(pingstatus)
 
 #Request information from index.html file to verify custom link page
 Index_file = os.path.exists('/var/www/html/index.html')
+if Index_file = True
+    print("Your index file is avilable")
 print(Index_file)
 #database checking ideas
 #check for tail redirection file
