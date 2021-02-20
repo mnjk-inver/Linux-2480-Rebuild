@@ -8,7 +8,7 @@ def completion():
     print("------------------------------------------")
 
 done = 0
-total = 6
+total = 7
 
 def requesting(ipaddress):
     try:
@@ -38,17 +38,26 @@ for app in apps:
         print(app+' is installed correctly')
         done = done + 1
     else:
-        print (app+" is not installed correctly")
+        print (app+" is NOT installed correctly")
 
 #check for alias of sysadmin
+aliases = subprocess.run("cat /etc/aliases", capture_output=True, text=True, shell=True)
+if "sysadmin:" in aliases.stdout:
+    print("alias successfully created")
+    done = done + 1
+else:
+    print("alias was NOT successfully created")
+
 #check for telnet port 25
+# scan for open port
 scan = subprocess.run("/usr/bin/nmap localhost", capture_output=True, text=True, shell=True)
+
+# check if string exists in output
 if "25/tcp" in scan.stdout:
     print("Telnet port has been opened")
     done = done + 1
 else:
-    print("Telnet is not functional")
-
+    print("Telnet port is NOT open")
 #verify postfix service is running
 services = subprocess.run("systemctl --type=service",  capture_output=True, text=True, shell=True)
 if "postfix" in services.stdout:
