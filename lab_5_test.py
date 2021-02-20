@@ -29,6 +29,7 @@ if response == 0:
    pingstatus = "Network Active"
 else:
     pingstatus = "Network Error"
+return pingstatus
 
 #check to see if PHP, MySQL, MariaDB packages are installed and latest version
 #Request information from index.html file to verify custom link page
