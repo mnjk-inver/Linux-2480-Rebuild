@@ -44,11 +44,12 @@ if Index_file == True:
     done = done + 1
 else:
     print("Your index.file appears to be missing, are you able to visit your server page in a browser?")
-#Testing requests
-r = requests.get("http://"+StudentIP+"/")
-r2 = r.text
+#Testing requests used <p></p> as this would likely be the first custom line
+#custom links page
+Clinks_page = requests.get("http://"+StudentIP+"/")
+CL2 = Clinks_page.text
 print('testing section')
-print(r2[r2.find("<p>") + 7: r2.find("</p>")])
+print(CL2[CL2.find("<p>") + 7: CL2.find("</p>")])
 
 #Check for open Port 80 (Apache)
 scan = subprocess.run("/usr/bin/nmap localhost", capture_output=True, text=True, shell=True)
@@ -64,7 +65,7 @@ else:
 Logtail_file = os.path.isfile('/home/'+UserName+'/logtail.txt')
 if Logtail_file == True:
     print()
-    print('You have created a logtail.txt file.')
+    print('You have created a logtail.txt file in your home directory.')
     done = done + 1
 else:
     print('Try Again. There is no logfile.txt file in your home directory.')
