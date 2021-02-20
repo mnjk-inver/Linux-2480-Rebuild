@@ -17,7 +17,7 @@ def completion():
     print()
 
 done = 0
-total = 4
+total = 5
 
 #get assigned ip address and user name
 StudentIP = input("Please enter your assigned IP address: ")
@@ -54,7 +54,13 @@ else:
 
 #database checking ideas
 #check for tail redirection file
-logtail_file = os.path.isfile('/home/'+UserName+'/logtail.txt')
+Logtail_file = os.path.isfile('/home/'+UserName+'/logtail.txt')
+if Logtail_file == True:
+    print()
+    print(You have created a logtail.txt file)
+    done = done + 1
+else:
+    print('Try Again. There is no logfile.txt file in your home directory')
 
 print(logtail_file)
 print(UserName)
