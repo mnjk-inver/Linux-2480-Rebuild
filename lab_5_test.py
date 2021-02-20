@@ -6,6 +6,8 @@ print("ITC 2480 Lab5 Self Check ... starting...")
 import subprocess
 import os
 import os.path
+import requests
+
 
 print()
 
@@ -38,16 +40,21 @@ print(pingstatus)
 Index_file = os.path.exists('/var/www/html/index.html')
 if Index_file == True:
     print()
-    print("Your index.html file has been created, Great Start")
+    print("Your index.html file has been created, Great Start!")
     done = done + 1
 else:
     print("Your index.file appears to be missing, are you able to visit your server page in a browser?")
+#Testing requests
+r = requests.get("http://"+StudentIP+"/")
+r2 = r.text
+print('testing section')
+print(r2[r2.find("<p>") + 7: r2.find("</p>")])
 
 #Check for open Port 80 (Apache)
 scan = subprocess.run("/usr/bin/nmap localhost", capture_output=True, text=True, shell=True)
 if "80/tcp" in scan.stdout:
     print()
-    print("Port 80 has been opened to allow access to your web page and Apache Server")
+    print("Port 80 has been opened to allow access to your web page and Apache Server.")
     done = done + 1
 else:
     print("Apache is not functional")
@@ -57,16 +64,16 @@ else:
 Logtail_file = os.path.isfile('/home/'+UserName+'/logtail.txt')
 if Logtail_file == True:
     print()
-    print('You have created a logtail.txt file')
+    print('You have created a logtail.txt file.')
     done = done + 1
 else:
-    print('Try Again. There is no logfile.txt file in your home directory')
+    print('Try Again. There is no logfile.txt file in your home directory.')
 
 #check to see if PHP, MySQL, MariaDB packages are installed and latest version
 #check if installed package versions is latest version as of 2/19/2021
 php_version = subprocess.run("apt list php7.3", capture_output=True, text=True, shell=True)
 if "php7.3" and "[installed,automatic]" in php_version.stdout:
-    print("You have installed the latest version of PHP")
+    print("You have installed the latest version of PHP.")
     done = done + 1
 else:
     print("You have not installed the latest version of PHP.")
