@@ -33,10 +33,10 @@ else:
 print(pingstatus)
 
 #get title from custom home page
-import requests
-r=requests.get(StudentIP)
-r2 = r.text
-print(r2[r2.find("<title>") + 7: r2.find("</title>")])
+#import requests
+#r=requests.get(StudentIP)
+#r2 = r.text
+#print(r2[r2.find("<title>") + 7: r2.find("</title>")])
 
 #Request information from index.html file to verify custom link page
 #database checking ideas
