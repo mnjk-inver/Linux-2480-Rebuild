@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="MNJK x.28" remoteFilesAllowedToDisappearOnAutoupload="false">
+  <component name="PublishConfigData" autoUpload="Always" serverName="mnjk@172.17.50.28:22" remoteFilesAllowedToDisappearOnAutoupload="false">
     <serverData>
       <paths name="MNJK x.28">
         <serverdata>
@@ -9,6 +9,14 @@
           </mappings>
         </serverdata>
       </paths>
+      <paths name="mnjk@172.17.50.28:22">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/tmp/pycharm_project_1" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
     </serverData>
+    <option name="myAutoUpload" value="ALWAYS" />
   </component>
 </project>

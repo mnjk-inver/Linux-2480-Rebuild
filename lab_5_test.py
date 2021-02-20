@@ -5,6 +5,7 @@ print("ITC 2480 Self Check ... starting...")
 # This command will import the OS library allowing linux CLI commands
 import subprocess
 import os
+import os.path
 
 print()
 
@@ -17,13 +18,13 @@ def completion():
 
 done = 0
 total = 4
-#get assigned ip address
+#get assigned ip address and user name
 StudentIP = input("Please enter your assigned IP address: ")
+UserName = input("please provide the user name for your account:")
 
 #Check if ip address responds to icmp requests "ping"
 hostname = StudentIP
 response = os.system("ping -c 1 " + hostname)
-print (response)
 if response == 0:
    pingstatus = "Congratulations! your Server is responding to ping requests at your assigned IP"
    done = done + 1
@@ -41,11 +42,13 @@ print(pingstatus)
 #Request information from index.html file to verify custom link page
 #database checking ideas
 #check for tail redirection file
+logtail_file = os.path.exists(os.path.join('/home/', UserName, '/logtail.txt/'))
+print(logtail_file)
 
 #check to see if PHP, MySQL, MariaDB packages are installed and latest version
 #check if installed package versions is latest version as of 2/19/2021
-php_version = subprocess.run("apt list php", capture_output=True, text=True, shell=True)
-if "php" and "[installed]" in php_version.stdout:
+php_version = subprocess.run("apt list php7.3", capture_output=True, text=True, shell=True)
+if "php7.3" and "[installed,automatic]" in php_version.stdout:
     print("You have installed the latest version of PHP")
     done = done + 1
 else:
