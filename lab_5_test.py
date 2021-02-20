@@ -40,8 +40,8 @@ print(pingstatus)
 
 
 #check if installed package versions is latest version as of 2/19/2021
-
-if "php" and "[installed]" in php.stdout:
+php_version = subprocess.run("apt list open-vm-tools", capture_output=True, text=True, shell=True)
+if "php" and "[installed]" in php_version.stdout:
     print("You have installed the latest version of PHP")
     done = done + 1
 else:
