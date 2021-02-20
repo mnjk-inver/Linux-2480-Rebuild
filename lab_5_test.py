@@ -5,6 +5,8 @@ print("hello world!")
 import subprocess
 import os
 
+print()
+
 def completion():
     print()
     print("You have completed "+str(done)+" of "+str(total)+" tasks for this lab.")
