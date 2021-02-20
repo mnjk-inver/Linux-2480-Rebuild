@@ -24,6 +24,7 @@ print(StudentIP)
 import os
 hostname = "172.17.50.6"
 response = os.system("ping -c 1 " + hostname)
+print response
 if response == 0
     pingstatus = "Network Active"
 else:
