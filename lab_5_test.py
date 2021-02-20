@@ -66,7 +66,7 @@ print(CL2[CL2.find("<p>") + 7: CL2.find("</p>")])
 #checking for phptest page
 Phptest_page = requests.get("http://"+StudentIP+"/phptest.php")
 PhpT2 = Phptest_page.text
-print(PhpT2[PhpT2.find("<head>") + 7: PhpT2.find(</head>)])
+print(PhpT2[PhpT2.find("<head>") + 7: PhpT2.find("</head>")])
 
 
 #database checking ideas
