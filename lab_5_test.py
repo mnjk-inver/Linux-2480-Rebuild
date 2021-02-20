@@ -57,7 +57,7 @@ else:
 Logtail_file = os.path.isfile('/home/'+UserName+'/logtail.txt')
 if Logtail_file == True:
     print()
-    print(You have created a logtail.txt file)
+    print('You have created a logtail.txt file')
     done = done + 1
 else:
     print('Try Again. There is no logfile.txt file in your home directory')
