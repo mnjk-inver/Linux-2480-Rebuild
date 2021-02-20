@@ -42,13 +42,11 @@ if "1 received" in response.stdout:
    Ip_set = True
 else:
     pingstatus = "Try Again! Network Error - Your Server is not responding to ping requests"
-print()
 print(pingstatus)
 
 #Request information from index.html file to verify custom link page
 Index_file = os.path.exists('/var/www/html/index.html')
 if Index_file == True:
-    print()
     print("Your index.html file has been created, Great Start!")
     done = done + 1
     Index_file_exists = True
@@ -58,7 +56,6 @@ else:
 #Check for open Port 80 (Apache)
 scan = subprocess.run("/usr/bin/nmap localhost", capture_output=True, text=True, shell=True)
 if "80/tcp" in scan.stdout:
-    print()
     print("Port 80 has been opened to allow access to your web page and Apache Server.")
     done = done + 1
     Apache_port_open = True
@@ -88,20 +85,22 @@ else:
 
 #Testing requests used <p></p> as this would likely be the first custom line
 #checking for custom links page
-Clinks_page = requests.get("http://"+StudentIP+"/")
-CL2 = Clinks_page.text
-print()
-print()
-print('Informational section')
-print(CL2[CL2.find("<p>") + 3: CL2.find("</p>")])
+if Apache_port_open and "1 received" in response.std.out:
+    Clinks_page = requests.get("http://"+StudentIP+"/")
+    CL2 = Clinks_page.text
+    print()
+    print()
+    print('Informational section')
+    print(CL2[CL2.find("<p>") + 3: CL2.find("</p>")])
 
 #checking for phptest page
-Phptest_page = requests.get("http://"+StudentIP+"/phptest.php")
-PhpT2 = Phptest_page.text
-print(PhpT2[PhpT2.find("<title>") + 7: PhpT2.find("</title>")])
-print()
-print()
-print("-------------------------------------------------")
+    Phptest_page = requests.get("http://"+StudentIP+"/phptest.php")
+    PhpT2 = Phptest_page.text
+    print(PhpT2[PhpT2.find("<title>") + 7: PhpT2.find("</title>")])
+    print("-------------------------------------------------")
+else:
+    print("information on your PHP Version and Apache server unavailable.")
+
 #Completeion count
 completion_counter()
 
