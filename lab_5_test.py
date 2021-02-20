@@ -1,6 +1,6 @@
 # this is a start
 print()
-print("ITC 2480 Self Check ... starting...")
+print("ITC 2480 Lab5 Self Check ... starting...")
 # This script will check ITC2480 Lab 5 for successful completion
 # This command will import the OS library allowing linux CLI commands
 import subprocess
@@ -21,8 +21,8 @@ total = 4
 
 #get assigned ip address and user name
 StudentIP = input("Please enter your assigned IP address: ")
-UserName = input("please provide the user name for your account:")
-
+UserName = input("please provide the user name for your account: ")
+print()
 #Check if ip address responds to icmp requests "ping"
 hostname = StudentIP
 response = os.system("ping -c 1 " + hostname)
@@ -31,12 +31,13 @@ if response == 0:
    done = done + 1
 else:
     pingstatus = "Try Again! Network Error - Your Server is not responding to ping requests"
-
+print()
 print(pingstatus)
 
 #Request information from index.html file to verify custom link page
 Index_file = os.path.exists('/var/www/html/index.html')
 if Index_file == True:
+    print()
     print("Your index.html file has been created, Great Start")
     done = done + 1
 else:
@@ -45,6 +46,7 @@ else:
 #Check for open Port 80 (Apache)
 scan = subprocess.run("/usr/bin/nmap localhost", capture_output=True, text=True, shell=True)
 if "80/tcp" in scan.stdout:
+    print()
     print("Port 80 has been opened to allow access to your web page and Apache Server")
     done = done + 1
 else:
@@ -52,7 +54,7 @@ else:
 
 #database checking ideas
 #check for tail redirection file
-logtail_file = os.path.isfile('/home/+UserName+/logtail.txt')
+logtail_file = os.path.isfile('/home/'+UserName+'/logtail.txt')
 
 print(logtail_file)
 print(UserName)
