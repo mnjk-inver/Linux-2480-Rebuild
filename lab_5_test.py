@@ -44,12 +44,7 @@ if Index_file == True:
     done = done + 1
 else:
     print("Your index.file appears to be missing, are you able to visit your server page in a browser?")
-#Testing requests used <p></p> as this would likely be the first custom line
-#custom links page
-Clinks_page = requests.get("http://"+StudentIP+"/")
-CL2 = Clinks_page.text
-print('testing section')
-print(CL2[CL2.find("<p>") + 7: CL2.find("</p>")])
+
 
 #Check for open Port 80 (Apache)
 scan = subprocess.run("/usr/bin/nmap localhost", capture_output=True, text=True, shell=True)
@@ -59,6 +54,20 @@ if "80/tcp" in scan.stdout:
     done = done + 1
 else:
     print("Apache is not functional")
+
+
+#Testing requests used <p></p> as this would likely be the first custom line
+#checking for custom links page
+Clinks_page = requests.get("http://"+StudentIP+"/")
+CL2 = Clinks_page.text
+print('testing section')
+print(CL2[CL2.find("<p>") + 7: CL2.find("</p>")])
+
+#checking for phptest page
+Phptest_page = requests.get("http://"+StudentIP+"/phptest.php")
+PhpT2 = Phptest_page.text
+print(PhpT2[PhpT2.find("<head>") + 7: PhpT2.find(</head>)])
+
 
 #database checking ideas
 #check for tail redirection file
