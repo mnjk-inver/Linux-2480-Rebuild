@@ -6,7 +6,7 @@ import requests
 os.system('clear')
 print()
 print()
-print("ITC 2480 Lab5 Self Check ... starting...")
+print("ITC 2480 Lab 5 Self Check ... starting...")
 # This script will check ITC2480 Lab 5 for successful completion
 # This command will import the OS library allowing linux CLI commands
 print("-------------------------------------------------")
@@ -16,6 +16,7 @@ Index_file_exists = False
 Apache_port_open = False
 Logtail_file_exists  = False
 Php_installed = False
+Mariadb_installed = False
 
 #counts completion of tasks scored
 def completion_counter():
@@ -26,11 +27,11 @@ def completion_counter():
     print()
 
 done = 0
-total = 5
+total = 8
 
 #get assigned ip address and user name
 StudentIP = input("Please enter your assigned IP address: ")
-UserName = input("please provide the user name for your account: ")
+UserName = input("Please provide the user name for your account: ")
 print("--------------------------------------------------")
 
 #Check if ip address responds to icmp requests "ping"
@@ -52,6 +53,16 @@ if Index_file == True:
     Index_file_exists = True
 else:
     print("Your index.file appears to be missing, are you able to visit your server page in a browser?")
+
+#Check for employees.sql file to verify the tarball was extracted
+
+Employees_sql_file = os.path.exists('/home/'+UserName+'/employees_db/employees.sql')
+if Employees_sql_file == True:
+    print("Your sample database was extracted and the employees.sql exists")
+    done = done + 1
+    Index_file_exists = True
+else:
+    print("Your employees.sql file appears to be missing, did you experiment with MySQL files?")
 
 #Check for open Port 80 (Apache)
 scan = subprocess.run("/usr/bin/nmap localhost", capture_output=True, text=True, shell=True)
@@ -75,17 +86,36 @@ else:
 
 #check to see if PHP, MySQL, MariaDB packages are installed and latest version
 #check if installed package versions is latest version as of 2/19/2021
+#PHP
 php_version = subprocess.run("apt list php", capture_output=True, text=True, shell=True)
 if "php" and "[installed]" in php_version.stdout:
     print("You have installed PHP.")
     done = done + 1
     Php_installed = True
 else:
-    print("You have not installed the latest version of PHP.")
+    print("You have NOT installed any version of PHP.")
+
+#check for Mariadb
+mariadb_version = subprocess.run("apt list php", capture_output=True, text=True, shell=True)
+if "mariadb" and "[installed]" in mariadb_version.stdout:
+    print("You have installed Mariadb or MySQL.")
+    done = done + 1
+    Mariadb_installed = True
+else:
+    print("You have NOT installed Mariadb or MySQL.")
+
+#check for php-mysql
+php_mysql_version = subprocess.run("apt list php", capture_output=True, text=True, shell=True)
+if "php-mysql" and "[installed]" in php_mysql_version.stdout:
+    print("You have installed PHP-MySQL.")
+    done = done + 1
+    Mariadb_installed = True
+else:
+    print("You have NOT installed PHP-MySQL.")
 
 #Testing requests used <p></p> as this would likely be the first custom line
 #checking for custom links page
-if Apache_port_open and "1 received" in response.std.out:
+if Apache_port_open and "1 received" in response.stdout:
     Clinks_page = requests.get("http://"+StudentIP+"/")
     CL2 = Clinks_page.text
     print()
