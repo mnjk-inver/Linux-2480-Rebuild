@@ -62,10 +62,6 @@ if Logtail_file == True:
 else:
     print('Try Again. There is no logfile.txt file in your home directory')
 
-print(logtail_file)
-print(UserName)
-
-
 #check to see if PHP, MySQL, MariaDB packages are installed and latest version
 #check if installed package versions is latest version as of 2/19/2021
 php_version = subprocess.run("apt list php7.3", capture_output=True, text=True, shell=True)
