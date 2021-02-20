@@ -22,7 +22,7 @@ print(StudentIP)
 #Check if ip address responds to icmp requests ping"
 
 
-hostname = "172.17.50.6"
+hostname = StudentIP
 response = os.system("ping -c 1 " + hostname)
 print (response)
 if response == 0:
