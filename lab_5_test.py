@@ -41,10 +41,10 @@ print(pingstatus)
 
 #check if installed package versions is latest version as of 2/19/2021
 
-#if "php" and "[installed]" in php.stdout:
-#    print("You have installed the latest version of PHP")
-#    done = done + 1
-#else:
-#    print("You have not installed the latest version of PHP.")
-#
-#completion()
+if "php" and "[installed]" in php.stdout:
+    print("You have installed the latest version of PHP")
+    done = done + 1
+else:
+    print("You have not installed the latest version of PHP.")
+
+completion()
