@@ -1,4 +1,5 @@
 # this is a start
+print()
 print("ITC 2480 Self Check ... starting...")
 # This script will check ITC2480 Lab 5 for successful completion
 # This command will import the OS library allowing linux CLI commands
