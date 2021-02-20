@@ -25,10 +25,10 @@ print(StudentIP)
 hostname = "172.17.50.6"
 response = os.system("ping -c 1 " + hostname)
 print (response)
-#if response == 0
-#   pingstatus = "Network Active"
-#else:
-#    pingstatus = "Network Error"
+if response == 0:
+   pingstatus = "Network Active"
+else:
+    pingstatus = "Network Error"
 
 #check to see if PHP, MySQL, MariaDB packages are installed and latest version
 #Request information from index.html file to verify custom link page
