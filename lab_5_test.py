@@ -19,16 +19,18 @@ total = 4
 #get assigned ip address
 StudentIP = input("Please enter your assigned IP address: ")
 print(StudentIP)
+
 #Check if ip address responds to icmp requests ping"
-
-
 hostname = StudentIP
 response = os.system("ping -c 1 " + hostname)
 print (response)
 if response == 0:
-   pingstatus = "Network Active"
+   pingstatus = "Congratulations! your Server is responding to ping requests at your assigned IP"
+   done = done + 1
 else:
-    pingstatus = "Network Error"
+    pingstatus = "Network Error - Your Server is not responding to ping requests"
+    print("Try again. The assigned IP is not responding.")
+
 print(pingstatus)
 
 #check to see if PHP, MySQL, MariaDB packages are installed and latest version
