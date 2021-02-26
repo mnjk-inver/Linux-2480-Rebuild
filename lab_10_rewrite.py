@@ -43,7 +43,7 @@ if "23/tcp" in scan.stdout:
     print("-" * 45)
     exit()
 #Check SSH port 22
-ports = {"ssh":22, "smtp":25, "dms":53, "http":80, "imap":143, "smb":445, "webmin":10000}
+ports = {"SSH":22, "SMTP":25, "DNS":53, "HTTP":80, "IMAP":143, "SMB":445, "WEBMIN":10000}
 
 for key in ports:
     done = port_checker(scan, ports[key], key, done)
