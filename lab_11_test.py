@@ -2,6 +2,7 @@
 # This script will check ITC2480 Lab 11 for successful completion
 # Import OS Library
 import os
+import re
 
 def completion():
     print("-" * 45, "\n" "You have completed "+str(done)+" of "+str(total)+" tasks for this lab.")
@@ -11,32 +12,40 @@ def completion():
 done = 0
 total = 3
 
-fstab = 0
+fv = 0
 
-# Define strings in /etc/fstab to check
-fst1 = "/dev/sdb1       /mnt/part1      ext4    defaults        0       0"
-fst2 = "/dev/sdb2       /mnt/btrfs      btrfs   defaults        0       0"
+# Define variables in /etc/fstab
+fstab = open('/etc/fstab', "r")
+fstab2 = open('/etc/fstab', "r")
+fst1 = "/dev/sdb1"
+fst2 = ['/dev/sdb1', '/mnt/part1', 'ext4', 'defaults', '0', '0']
+fst3 = "/dev/sdb2"
+fst4 = ['/dev/sdb2', '/mnt/btrfs', 'btrfs', 'defaults', '0', '0']
 
-# Define string in /proc/mounts to check
+
+# Define variables in /proc/mounts
 mnt1 = "/dev/sdb1 /mnt/part1 ext4"
 mnt2 = "/dev/sdb2 /mnt/btrfs btrfs"
 
 print("-" * 45)
 
 # Check /etc/fstab
-with open("/etc/fstab") as a:
-	if fst1 in a.read():
-		fstab = fstab + 1
+for line in fstab:
+	if re.match(fst1, line):
+		if line.split() == fst2:
+			fv = fv + 1
 
-with open("/etc/fstab") as a:
-	if fst2 in a.read():
-		fstab = fstab + 1
+for line2 in fstab2:
+	if re.match(fst3, line2):
+		if line2.split() == fst4:
+			fv = fv + 1
 
-if fstab == 2:
+if fv == 2:
 	print("Good work, fstab is configured correctly.")
 	done = done + 1
 else:
 	print("Try again, fstab is not configured correctly.")
+
 
 # Check if sdb1 is mounted
 with open("/proc/mounts") as b:
