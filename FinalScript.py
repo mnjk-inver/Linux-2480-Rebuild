@@ -154,7 +154,6 @@ simplecommand("firewall-cmd --list-all-zones")
 simplecommand("iptables-legacy -L")
 simplecommand("iptables-legacy -t nat -L -n -v")
 simplecommand("sysctl net.ipv4.ip_forward")
-
 myscript = subprocess.run("locate myscript", capture_output=True, text=True, shell=True)
 for i in myscript.stdout.splitlines():
     print(i + " Contents:")
