@@ -3,4 +3,3 @@ import subprocess
 
 subprocess.call("chmod 755 Bashscript.sh", shell=True)
 subprocess.call("./Bashscript.sh", shell=True)
-print("did it work?")
