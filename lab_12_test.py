@@ -24,7 +24,7 @@ else:
     print("Zabbix Server is not installed.")
 
 Zabbix_frontend_installed = subprocess.run("apt list zabbix-frontend-php", capture_output=True, text=True, shell=True)
-if "zabbix-frontend-php" in Zabbix_frontend_installed.stdout:
+if "zabbix-frontend-php" and "[installed]" or "upgradable" in Zabbix_frontend_installed.stdout:
     print("Good work. You have installed Zabbix Frontend!")
     done = done + 1
     Zabbix_frontend_installed = True

@@ -29,7 +29,7 @@ print("-" * 45)
 hostname = StudentIP
 response = subprocess.run("ping -c 1 " + "172.17.50.28", capture_output=True, text=True, shell=True)
 if "1 received" in response.stdout:
-   pingstatus = "Good work. your Server is responding to ping requests at your assigned IP!"
+   pingstatus = "Good work. Your Server is responding to ping requests at your assigned IP!"
    done = done + 1
    Ip_set = True
 else:
