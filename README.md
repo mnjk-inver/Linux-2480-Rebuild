@@ -10,15 +10,10 @@ This project consists of python scripts designed to check students work in the L
 - lab 7
 - lab 8
 - lab 9
-
-## Labs to do 📌
 - lab 10
 - lab 11
 - lab 12
-
-Potential labs ❔
-- lab 13
-- lab 14
+- FinalScript
 
 ## Current Labs finalized ✅
 - None
