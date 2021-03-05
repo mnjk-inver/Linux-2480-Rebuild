@@ -1,15 +1,9 @@
 #!/usr/bin/env python3
-'''
-This is a work in progress! A lot of the code can be improved and revised.
-It will definitly change so its not adviced to used this in your own scripts until it is finalized!
-Still need to make it append outputs to a file but will do that at the end.
-'''
 # Import modules used for this script
 import subprocess
 
-# Assign Success and Warning for outputs (color coded)
-Success = '\x1b[6;30;42m' + 'Success!' + '\x1b[0m'
-Warning = '\x1b[5;30;41m' + 'Warning!' + '\x1b[0m'
+# Set output file and open it
+sbafile = open("sbaOutput.txt", "a")
 
 # Get the user name and system id (Can be improved. Just a working example!)
 STUUSER = "examuser"
@@ -25,139 +19,162 @@ blog_url = f"http://{STUVMIP}/blog"
 # Define aptcheck for checking installed programs
 def aptcheck(installed, command, name):
     if installed in command.stdout:
-        print(Success + f"{name} is installed")
+        print(f" {name} is installed", file=sbafile)
     else:
-        print(Warning + f"{name} is NOT installed!")
+        print(f" {name} is NOT installed!", file=sbafile)
+        subprocess.run(f"apt install -y {name}", capture_output=True, text=True, shell=True, errors='ignore')
 
 
 # Define simple command for repeated command usage
 def simplecommand(command):
-    output = subprocess.run(f"{command}", capture_output=True, text=True, shell=True)
-    print(output.stdout)
+    output = subprocess.run(f"{command}", capture_output=True, text=True, shell=True, errors='ignore')
+    print(output.stdout, file=sbafile)
 
 
 # Define 'ls -al' command for repeated command usage
 def lsalcommand(command):
-    output = subprocess.run(f"ls -al {command}", capture_output=True, text=True, shell=True)
-    output2 = subprocess.run(f"ls -al {command} | cat -n | head", capture_output=True, text=True, shell=True)
-    output3 = subprocess.run(f"ls -al {command} | cat -n | tail", capture_output=True, text=True, shell=True)
-    print(output.stdout, output2.stdout, output3.stdout)
+    output = subprocess.run(f"ls -al {command}", capture_output=True, text=True, shell=True, errors='ignore')
+    output2 = subprocess.run(f"ls -al {command} | cat -n | head", capture_output=True, text=True, shell=True, errors='ignore')
+    output3 = subprocess.run(f"ls -al {command} | cat -n | tail", capture_output=True, text=True, shell=True, errors='ignore')
+    print(output.stdout, output2.stdout, output3.stdout, file=sbafile)
 
 
 # Define 'locate' command for both head and tails content
 def locate(command):
-    Files = subprocess.run(f"locate {command}", capture_output=True, text=True, shell=True)
+    Files = subprocess.run(f"locate {command}", capture_output=True, text=True, shell=True, errors='ignore')
     for i in Files.stdout.splitlines():
-        print(i + " Contents:")
+        print(i + " Contents:", file=sbafile)
         content = subprocess.run(f"cat -n {i} | head", capture_output=True, text=True, shell=True, errors='ignore')
         content2 = subprocess.run(f"cat -n {i} | tail", capture_output=True, text=True, shell=True, errors='ignore')
-        print(content.stdout, content2.stdout)
+        print(content.stdout, content2.stdout, file=sbafile)
         
 
 # Define 'locate' command for tail content
 def locatetail(command):
-    Files = subprocess.run(f"locate {command}", capture_output=True, text=True, shell=True)
+    Files = subprocess.run(f"locate {command}", capture_output=True, text=True, shell=True, errors='ignore')
     for i in Files.stdout.splitlines():
-        print(i + " Contents:")
+        print(i + " Contents:", file=sbafile)
         content = subprocess.run(f"cat -n {i} | tail", capture_output=True, text=True, shell=True, errors='ignore')
-        print(content.stdout)
+        print(content.stdout, file=sbafile)
 
 
 # Define 'locate' command for both head and tails tar content
 def locatetar(command):
-    Files = subprocess.run(f"locate {command}", capture_output=True, text=True, shell=True)
+    Files = subprocess.run(f"locate {command}", capture_output=True, text=True, shell=True, errors='ignore')
     for i in Files.stdout.splitlines():
-        print(i + " Contents:")
+        print(i + " Contents:", file=sbafile)
         content = subprocess.run(f"tar -ztvf {i} | cat -n | head", capture_output=True, text=True, shell=True, errors='ignore')
         content2 = subprocess.run(f"tar -ztvf {i} | cat -n | tail", capture_output=True, text=True, shell=True, errors='ignore')
-        print(content.stdout, content2.stdout)
+        print(content.stdout, content2.stdout, file=sbafile)
 
 
-# Checking installed programs (Going to add 'subprocess.run' to the definition later!)
-aptcheck("installed", subprocess.run("apt list locate", capture_output=True, text=True, shell=True), "locate")
-aptcheck("installed", subprocess.run("apt list curl", capture_output=True, text=True, shell=True), "curl")
-aptcheck("installed", subprocess.run("apt list dnsutils", capture_output=True, text=True, shell=True), "dnsutils")
-aptcheck("installed", subprocess.run("apt list python3", capture_output=True, text=True, shell=True), "python3")
-aptcheck("installed", subprocess.run("apt list python3-requests", capture_output=True, text=True, shell=True), "python3-requests")
-
-# Checking hostname, sudoers, students, and user id's
-simplecommand("cat /etc/passwd | grep linuxgeek")
+# Read "print statments" for info. Wanted to keep things compact. Can update if other people are going to use this!
+print("\n", "#"*25, " BEGIN runtime parameters ##", file=sbafile)
+print(f"Student Username: {STUUSER}", file=sbafile)
+print(f"Student VM ID: {STUVMID}", file=sbafile)
+print(f"Student VM IP: {STUVMIP}", file=sbafile)
+print("\n\n", "#"*25, " END runtime parameters ##", "\n\n", "#"*25, " BEGIN installed package check ##", file=sbafile)
+aptcheck("install", subprocess.run("dpkg --get-selections locate", capture_output=True, text=True, shell=True, errors='ignore'), "locate")
+aptcheck("install", subprocess.run("dpkg --get-selections curl", capture_output=True, text=True, shell=True, errors='ignore'), "curl")
+aptcheck("install", subprocess.run("dpkg --get-selections dnsutils", capture_output=True, text=True, shell=True, errors='ignore'), "dnsutils")
+aptcheck("install", subprocess.run("dpkg --get-selections python3", capture_output=True, text=True, shell=True, errors='ignore'), "python3")
+aptcheck("install", subprocess.run("dpkg --get-selections python3-requests", capture_output=True, text=True, shell=True, errors='ignore'), "python3-requests")
+print("\n\n", "#"*25, " END installed package check ##", "\n\n", "#"*25, " BEGIN /etc/hostname output ##", file=sbafile)
 simplecommand("cat /etc/hostname")
+print("\n\n", "#"*25, " END /etc/hostname output ##", "\n\n", "#"*25, " BEGIN /etc/passwd output ##", file=sbafile)
+simplecommand("cat /etc/passwd | grep linuxgeek")
+print("\n\n", "#"*25, " END /etc/passwd output ##", "\n\n", "#"*25, " BEGIN /etc/sudoers output ##", file=sbafile)
+simplecommand("cat /etc/sudoers | grep linuxgeek")
+print("\n\n", "#"*25, " END /etc/sudoers output ##", "\n\n", "#"*25, " BEGIN /etc/group output ##", file=sbafile)
 simplecommand("cat /etc/group | grep sudo")
 simplecommand("cat /etc/group | grep students")
-
-# Checking if host user has sudo permissions (Can be improved. Just a working example!)
-is_sudo = subprocess.run("groups " + STUUSER, capture_output=True, text=True, shell=True)
-if "sudo" in is_sudo.stdout:
-    print("User is sudo")
-else:
-    print("not sudo")
-
-
-# Print out files and there content from the 'locate tail' command output
+print("\n\n", "#"*25, " END /etc/group output ##", "\n\n", 
+"#"*25, " BEGIN Line-numbered /home/linuxgeek/recent-log output ##", "\n", "There should only be 10 lines!", file=sbafile)
 locatetail("lrecent-log")
-
-# Checking and outputing the directorys shown
+print("\n\n", "#"*25, " END Line-numbered /home/linuxgeek/recent-log output", "\n\n", "#"*25, " BEGIN ls -l /home/linuxgeek output", file=sbafile)
 simplecommand("ls -l /home/linuxgeek/")
+print("\n\n", "#"*25, " END ls -l /home/linuxgeek output ##", "\n\n", "#"*25, f" BEGIN ls -l /home/{STUUSER} output", file=sbafile)
 simplecommand(f"ls -l /home/{STUUSER}/")
+print("\n\n", "#"*25, f" END ls -l /home/{STUUSER} output ##", "\n\n", "#"*25, f" BEGIN ls -l /home/{STUUSER}/itcfinal output", file=sbafile)
 simplecommand(f"ls -l /home/{STUUSER}/itcfinal/")
-
-# Gather the output using the locate command and get the head/tails content
+print("\n\n", "#"*25, f" END ls -l /home/{STUUSER}/itcfinal output ##", "\n\n", 
+"#"*25, f" BEGIN Head/Tail of Line-numbered /home/{STUUSER}/itcfinal/kernmsg.txt output ##", file=sbafile)
 locate("kernmsg.txt")
-
-# Us the ls -al command to get the contents of the backups folder
+print("\n\n", "#"*25, f" END Head/Tail of Line-numbered /home/{STUUSER}/itcfinal/kernmsg.txt output ##", "\n\n", 
+"#"*25, f" BEGIN Head/Tail of Line-numbered ls -al /home/{STUUSER}/backups/orig-config/ output ##", file=sbafile)
 lsalcommand(f"/home/{STUUSER}/backups/orig-config/")
+print("\n\n", file=sbafile)
 lsalcommand(f"/home/{STUUSER}/backups/orig-config/etc/")
-
-# Getting the tail of the system users of the home and root
+print("\n\n", "#"*25, f" END Head/Tail of Line-numbered ls -al /home/{STUUSER}/backups/orig-config/ output ##", "\n\n", 
+"#"*25, f" BEGIN Tail of Line-numbered /home/{STUUSER}/backups/system-users output ##", file=sbafile)
 locatetail("system-users | grep -E 'home|root'")
-
-# Gather the output using the locate command and get the head/tails content
+print("\n\n", "#"*25, f" END Tail of Line-numbered /home/{STUUSER}/backups/system-users output ##", "\n\n", 
+"#"*25, f" BEGIN Head/Tail of Line-numbered /home/{STUUSER}/itcfinal/systemlogs.tar.gz output ##", file=sbafile)
 locatetar("systemlogs.tar.gz")
-
+print("\n\n", "#"*25, f" END Head/Tail of Line-numbered /home/{STUUSER}/itcfinal/systemlogs.tar.gz output ##", "\n\n", 
+"#"*25, " BEGIN Softlink Check on /home/linuxgeek/itcfinal-backups ##", file=sbafile)
 simplecommand("ls -al /home/linuxgeek/")
 simplecommand("ls -al /home/linuxgeek/ | head")
 simplecommand("ls -al /home/linuxgeek/itcfinal-backups")
 simplecommand("ls -al /home/linuxgeek/itcfinal-backups | head")
+print("\n\n", "#"*25, " END Softlink Check on /home/linuxgeek/itcfinal-backups ##", "\n\n", "#"*25, " BEGIN ifconfig output ##", file=sbafile)
+simplecommand("ifconfig")
+print("\n\n", "#"*25, " END ifconfig output ##", "\n\n", "#"*25, " BEGIN check apache installed ##", file=sbafile)
 simplecommand("dpkg -s apache2 2>&1 | head -2")
 simplecommand("dpkg -s php 2>&1 | head -2")
 simplecommand("dpkg -s php-mysql 2>&1 | head -2")
 simplecommand("dpkg -s libapache2-mod-php 2>&1 | head -2")
 simplecommand("dpkg -s mariadb-server 2>&1 | head -2")
 simplecommand("dpkg -s wordpress 2>&1 | head -2")
+print("\n\n", "#"*25, " END check apache installed ##", "\n\n", "#"*25, " BEGIN Webserver content check ##", file=sbafile)
 simplecommand("ls -l /var/www")
 simplecommand("ls -l /var/www/html")
 simplecommand("ls /var/www/html/blog")
 WPSITETITLE = simplecommand(f'curl -s {STUVMIP}/blog/ | grep -o "<title>[^<]*" | tail -c+8')
-simplecommand(f"echo Site Title: {WPSITETITLE}")
-simplecommand("echo Entry Titles: ")
+print("\n\n", "###CURL OUTPUT###", "\n\n",  f"Site Title: {WPSITETITLE}", "\n", "Entry Titles:", file=sbafile)
 simplecommand(f"curl -s {STUVMIP}/blog/ | grep -o -P '(?<=<h. class=\"entry-title heading-size-1\">).*(?=</h.>)'")
+print("\n\n", "#"*25, " END Webserver content check ##", "\n\n", "#"*25, " BEGIN fdisk -l /dev/sdb output ##", file=sbafile)
 simplecommand("fdisk -l /dev/sdb")
+print("\n\n", "#"*25, " END fdisk -l /dev/sdb output ##", "\n\n", "#"*25, " BEGIN listing of filesystems on /dev/sdb ##", file=sbafile)
 simplecommand("file -sL /dev/sdb*")
+print("\n\n", "#"*25, " END listing of filesystems on /dev/sdb ##", "\n\n", "#"*25, " BEGIN listing of mounts ##", file=sbafile)
 simplecommand("mount 2>&1 | grep sd")
+print("\n\n", "#"*25, " END listing of mounts ##", "\n\n", "#"*25, " BEGIN listing of fstab ##", file=sbafile)
 simplecommand("cat /etc/fstab")
+print("\n\n", "#"*25, " END listing of fstab ##", "\n\n", "#"*25, " BEGIN check samba installed ##", file=sbafile)
 simplecommand("dpkg -s samba 2>&1 | head -2")
+print("\n\n", "#"*25, " END check samba installed ##", "\n\n", "#"*25, " BEGIN tail samba config ##", file=sbafile)
 simplecommand("tail -20 /etc/samba/smb.conf")
+print("\n\n", "#"*25, " END tail samba config ##", "\n\n", "#"*25, " BEGIN windows file share check ##", file=sbafile)
 simplecommand(f"ls -l /home/{STUUSER}/Windows File Test/")
+print("\n\n", "#"*25, " END windows file share check ##", "\n\n", "#"*25, " BEGIN permissions check on /winshare/students ##", file=sbafile)
 simplecommand("ls -al /winshare/students")
+print("\n\n", "#"*25, " END permissions check on /winshare/students ##", "\n\n", "#"*25, " BEGIN check bind installed ##", file=sbafile)
 simplecommand("dpkg -s bind9 2>&1 | head -2")
+print("\n\n", "#"*25, " END check bind installed ##", "\n\n", "#"*25, " BEGIN caching nameserver check ##", file=sbafile)
 simplecommand("nslookup google.com 127.0.0.1")
+print("\n\n", "#"*25, " END caching nameserver check ##", "\n\n", "#"*25, f" BEGIN zone sba-{STUVMID} checks ##", file=sbafile)
 simplecommand(f"nslookup sba-{STUVMID}.itc2480.campus.ihitc.net 127.0.0.1")
 simplecommand(f"nslookup mymachine.sba-{STUVMID}.itc2480.campus.ihitc.net 127.0.0.1")
 simplecommand(f"nslookup mailserver.sba-{STUVMID}.itc2480.campus.ihitc.net 127.0.0.1")
 simplecommand(f"nslookup www.sba-{STUVMID}.itc2480.campus.ihitc.net 127.0.0.1")
 simplecommand(f"nslookup -q=MX sba-{STUVMID}.itc2480.campus.ihitc.net 127.0.0.1")
 simplecommand(f"cat /var/lib/bind/sba-{STUVMID}.itc2480.campus.ihitc.net.hosts")
-# simplecommand(f"cat /var/lib/bind/sba-{STUVMID}.itc2480.campus.ihitc.net.hosts")
+print("\n\n", "#"*25, " END zone checks ##", "\n\n", "#"*25, " BEGIN DHCP config tail ##", file=sbafile)
 simplecommand("cat /etc/dhcp/dhcpd.conf 2>&1 | tail")
+print("\n\n", "#"*25, " END DHCP config tail ##", "\n\n", "#"*25, " BEGIN firewalld config ##", file=sbafile)
 simplecommand("firewall-cmd --list-all-zones")
+print("\n\n", "#"*25, " END firewalld config ##", "\n\n", "#"*25, " BEGIN iptables FW config ##", file=sbafile)
 simplecommand("iptables-legacy -L")
+print("\n\n", "#"*25, " END iptables FW config ##", "\n\n", "#"*25, " BEGIN iptables NAT config ##", file=sbafile)
 simplecommand("iptables-legacy -t nat -L -n -v")
+print("\n\n", "#"*25, " END iptables NAT config ##", "\n\n", "#"*25, " BEGIN IP ROUTING config ##", file=sbafile)
 simplecommand("sysctl net.ipv4.ip_forward")
+print("\n\n", "#"*25, " END IP ROUTING config ##", "\n\n", "#"*25, " BEGIN script listing ##", file=sbafile)
 myscript = subprocess.run("locate myscript", capture_output=True, text=True, shell=True)
 for i in myscript.stdout.splitlines():
-    print(i + " Contents:")
+    print(i + " Contents:", file=sbafile)
     content = subprocess.run(f"ls -l {i}", capture_output=True, text=True, shell=True, errors='ignore')
     content2 = subprocess.run(f"cat {i}", capture_output=True, text=True, shell=True, errors='ignore')
-    print(content.stdout, content2.stdout)
-print("#"*25, "END OF SCRIPT", "#"*25)
+    print(content.stdout, content2.stdout, file=sbafile)
+print("\n\n", "#"*25, "END OF SCRIPT", "##", file=sbafile)
