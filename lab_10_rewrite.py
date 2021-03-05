@@ -15,7 +15,7 @@ def port_checker(scan, port, protocol,done):
         done = done + 1
         return done
     else:
-        print(str(protocol)+" is not functional or or port has NOT been opened")
+        print(str(protocol)+" is not functional or port has NOT been opened")
         return done
 
 print("-" * 45)
