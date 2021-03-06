@@ -40,31 +40,31 @@ def appcheck(apptocheck):
     return appname.stdout
 
 if "Debian" in os_version.stdout:
-    print("OS is Debian Buster |")
+    print("OS is Debian Buster"+/n)
     done = done + 1
 else:
-    print("Debian is not installed! |")
+    print("Debian is not installed!"+/n)
 
 if "(ssh) open" in ssh_on.stderr:
-    print("SSH port has been opened |")
+    print("SSH port has been opened"+/n)
     done = done + 1
 else:
-    print("Port 22/SSH is not open! |")
+    print("Port 22/SSH is not open!"+/n)
 
 if "sudo" in is_sudo.stdout:
-    print(username + " can execute commands with sudo. |")
+    print(username + " can execute commands with sudo."+/n)
     done = done + 1
 else:
-    print("You are not a sudo user! |")
+    print("You are not a sudo user!"+/n)
 
 apps = {"open-vm-tools", "python3", "curl", "nmap"}
 for apptocheck in apps:
     appname = appcheck(apptocheck)
     if "Status: install ok installed" in appname:
-        print("You have installed "+apptocheck+" |" )
+        print("You have installed "+apptocheck+/n )
         done = done + 1
     else:
-        print(apptocheck+" is not installed! |")
+        print(apptocheck+" is not installed!" +/n)
 
 
 completion()
