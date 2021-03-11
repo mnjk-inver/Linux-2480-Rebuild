@@ -23,7 +23,7 @@ print("-" * 45)
 #Nmap scan, look for open ports 22, 25, 53, 80, 143, 445, 2222, 10000
 # scan for open port
 scan = subprocess.run("/usr/bin/nmap localhost", capture_output=True, text=True, shell=True)
-firewall_status = subprocess.run("service firewalld status", capture_output=True, text=True, shell=True)
+firewall_status = subprocess.run("sudo service firewalld status", capture_output=True, text=True, shell=True)
 #print(firewall_status.stderr)
 if "service: not found" in firewall_status.stderr:
     print("Try running this script with sudo")
