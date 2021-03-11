@@ -12,6 +12,7 @@ Logtail_file_exists  = False
 Php_installed = False
 Mariadb_installed = False
 Php_mysql_installed = False
+print("-" * 45)
 
 #counts completion of tasks scored
 def completion():

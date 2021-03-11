@@ -6,6 +6,7 @@ done = 0
 bind_options = subprocess.run("cat /etc/bind/named.conf.options", capture_output=True, text=True, shell=True)
 interfaces = subprocess.run("cat /etc/network/interfaces", capture_output=True, text=True, shell=True)
 host = subprocess.run("cat /var/lib/bind/*.itc2480.campus.ihitc.net.hosts", capture_output=True, text=True, shell=True)
+print("-" * 45)
 
 
 def completion():

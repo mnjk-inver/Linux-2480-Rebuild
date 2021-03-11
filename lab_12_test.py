@@ -5,6 +5,7 @@ import os, subprocess
 Zabbix_server_installed = False
 Zabbix_frontend_installed = False
 Zabbix_conf_exists = False
+print("-" * 45)
 
 #counts completion of tasks scored
 def completion():

@@ -16,6 +16,7 @@ dir1 = os.path.expanduser("~/documentation")
 dir2 = os.path.expanduser("~/experiments")
 read_html = os.path.expanduser("/var/www/html/index.html")
 locate_installed = subprocess.run("dpkg -s locate", capture_output=True, text=True, shell=True)
+print("-" * 45)
 
 if os.path.exists(dir1):
     print("Good work the directory ~/documentation was created.")
