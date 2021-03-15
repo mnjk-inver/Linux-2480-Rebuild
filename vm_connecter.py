@@ -13,7 +13,7 @@ podinfo = data['vms'][f"pod" + pod.lower()]
 print(f"Connecting to pod {podinfo['id']} with the ip {podinfo['ip']}")
 username = input("Username: ")
 password = getpass("Password: ")
-secret = getpass("Secret (Mostlikly the same as your password): ")
+secret = getpass("Secret (Most likely the same as your password): ")
 
 # Make a connection handler with the information provided plus the json.
 virtualmachine = {
