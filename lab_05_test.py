@@ -14,20 +14,28 @@ Mariadb_installed = False
 Php_mysql_installed = False
 print("-" * 45)
 
+# Auto grab username of currently logged in user
+who_output = subprocess.run("who", capture_output=True, text=True, shell=True)
+who_split = who_output.stdout.split()
+username = str(who_split[0])
+
+#Get IP address
+IPfull = subprocess.run("ip address show", capture_output=True, text=True, shell=True)
+IP = IPfull.stdout[IPfull.stdout.find("inet 172.17.50.") +15: IPfull.stdout.find("/24")]
+ipadd = "172.17.50."+IP
+# print (ipadd)
+print ("Verify that your assigned IP address is:", ipadd)
+
 #counts completion of tasks scored
 def completion():
     print("-" * 45, "\n" "You have completed", str(done), "out of 8 tasks for this lab!")
     if done == 8:
         print("Congratulations you have completed all tasks for this lab.", "\n", "-" * 45)
 done = 0
-
-#get assigned ip address and user name
-StudentIP = input("Please enter your assigned IP address: ")
-UserName = input("Please provide the user name for your account: ")
 print("-" * 45)
 
 #Check if ip address responds to icmp requests "ping"
-hostname = StudentIP
+hostname = ipadd
 response = subprocess.run("ping -c 1 " + "172.17.50.28", capture_output=True, text=True, shell=True)
 if "1 received" in response.stdout:
    pingstatus = "Good work. Your Server is responding to ping requests at your assigned IP!"
@@ -56,7 +64,7 @@ else:
     print("Apache is not functional")
 
 #Check for employees.sql file to verify the tarball was extracted
-Employees_sql_file = os.path.exists('/home/'+UserName+'/employees_db/employees.sql')
+Employees_sql_file = os.path.exists('/home/'+username+'/employees_db/employees.sql')
 if Employees_sql_file == True:
     print("Good work. Your sample database was extracted and the employees.sql exists!")
     done = done + 1
@@ -65,7 +73,7 @@ else:
     print("Your employees.sql file appears to be missing, did you experiment with MySQL files?")
 
 #check for tail redirection file
-Logtail_file = os.path.isfile('/home/'+UserName+'/logtail.txt')
+Logtail_file = os.path.isfile('/home/'+username+'/logtail.txt')
 if Logtail_file == True:
     print("Good work. You have created a logtail.txt file in your home directory!")
     done = done + 1
