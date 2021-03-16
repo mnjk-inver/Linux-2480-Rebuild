@@ -14,7 +14,7 @@ Mariadb_installed = False
 Php_mysql_installed = False
 print("-" * 45)
 
-# Auto grab username of currently logged in user
+# Auto grab username of currently logged in user to prevent input needed
 who_output = subprocess.run("who", capture_output=True, text=True, shell=True)
 who_split = who_output.stdout.split()
 username = str(who_split[0])
