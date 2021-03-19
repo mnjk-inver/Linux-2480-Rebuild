@@ -226,7 +226,7 @@ print("#" * 25 + "END script listing ##", file=sbafile)
 
 sbafile.close()
 
-sbafile = open("sbaOutput.txt", "r")
+sbafile2 = open("sbaOutput.txt", "r")
 
-output = sbafile.read()
+output = sbafile2.read()
 print(output)
