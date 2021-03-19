@@ -224,7 +224,6 @@ for i in myscript.stdout.splitlines():
     print(content.stdout.strip(), content2.stdout.strip(), file=sbafile)
 print("#" * 25 + "END script listing ##", file=sbafile)
 
-sbafile.close()
 
-output = subprocess.run("cat sbaOutput.txt", capture_output=True, text=True, shell=True)
-print(output.stdout)
+output = sbafile.read()
+output
