@@ -224,6 +224,9 @@ for i in myscript.stdout.splitlines():
     print(content.stdout.strip(), content2.stdout.strip(), file=sbafile)
 print("#" * 25 + "END script listing ##", file=sbafile)
 
+sbafile.close()
+
+sbafile = open("sbaOutput.txt", "r")
 
 output = sbafile.read()
 print(output)
