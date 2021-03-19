@@ -223,3 +223,6 @@ for i in myscript.stdout.splitlines():
     content2 = subprocess.run(f"cat {i}", capture_output=True, text=True, shell=True, errors='ignore')
     print(content.stdout.strip(), content2.stdout.strip(), file=sbafile)
 print("#" * 25 + "END script listing ##", file=sbafile)
+
+output = subprocess.run("cat sbaOutput.txt", capture_output=True, text=True, shell=True)
+print(output.stdout)
