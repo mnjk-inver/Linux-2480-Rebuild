@@ -3,7 +3,7 @@
 import subprocess
 
 # Set output file and open it
-sbafile = open("sbaOutput.txt", "a")
+sbafile = open("sbaOutput.txt", "a+")
 
 # Get the user name and system id (Can be improved. Just a working example!)
 STUUSER = "examuser"
