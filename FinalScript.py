@@ -1,6 +1,13 @@
 #!/usr/bin/env python3
 # Import modules used for this script
 import subprocess
+import os
+
+# Start with a fresh file
+try:
+    os.remove("sbaOutput.txt")
+except OSError:
+    pass
 
 # Set output file and open it
 sbafile = open("sbaOutput.txt", "a")

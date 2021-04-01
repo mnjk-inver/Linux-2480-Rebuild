@@ -9,8 +9,8 @@ print("-" * 45)
 
 #counts completion of tasks scored
 def completion():
-    print("-" * 45, "\n" "You have completed", str(done), "out of 3 tasks for this lab!")
-    if done == 3:
+    print("-" * 45, "\n" "You have completed", str(done), "out of 5 tasks for this lab!")
+    if done == 5:
         print("Congratulations you have completed all tasks for this lab.", "\n", "-" * 45)
 
 done = 0
@@ -40,5 +40,20 @@ if Zabbix_conf_exists == True:
     Zabbix_conf_exists = True
 else:
     print("Your zabbix.conf.php appears to be missing, are you able to log in to Zabbix?")
+
+Zabbix_status = subprocess.run("systemctl status zabbix-server", capture_output=True, text=True, shell=True)
+if "Active: active" in Zabbix_status.stdout:
+    print("Good work. Zabbix is running!")
+    done = done + 1
+else:
+    print("Zabbix is not running! Make sure to start zabbix-server!")
+
+# Check port
+Zabbix_testport = subprocess.run("nmap localhost -p T:10050,10051", capture_output=True, text=True, shell=True)
+if "open" and "10050" or "10051" in Zabbix_testport.stdout:
+    print("Good work. Zabbix port is reachable!")
+    done = done + 1
+else:
+    print("Zabbix is unreachable or the port is closed. check ports 10050 and 10051!")
 
 completion()
