@@ -1,5 +1,7 @@
 import requests, subprocess, os.path
 
+
+#check to see how many lab tasks have been completed
 def completion():
     print("-" * 45)
     print("You have completed "+str(done)+" of "+str(total)+" tasks for this lab.")
@@ -7,10 +9,11 @@ def completion():
         print("Congratulations you have completed all tasks for this lab")
     print("-" * 45)
 
-
+#total number of tasks in the lab
 done = 0
 total = 7
 
+#module to grab the title of the hosted website
 def requesting(ipaddress):
     try:
         r=requests.get(ipaddress)
@@ -20,6 +23,7 @@ def requesting(ipaddress):
     except(requests.exceptions.ConnectionError):
         pass
 
+#module to check the version of app installed and compare installed to latest version
 def version_check(app):
     version = subprocess.run("apt-cache policy "+app, capture_output=True, text=True, shell=True)
     try:
@@ -33,6 +37,7 @@ def version_check(app):
 
 print("-" * 45)
 
+#for loop with names of apps to check for
 apps = ["postfix","courier-pop","courier-imap", "fam"]
 for app in apps:
     appname = version_check(app)
