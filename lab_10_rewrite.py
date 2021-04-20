@@ -1,5 +1,6 @@
 import subprocess
 
+#check to see how many lab tasks have been completed
 def completion():
     print("-" * 45, "\n" "You have completed", str(done), "out of 8 tasks for this lab!")
     if done == 8:
@@ -9,6 +10,7 @@ def completion():
 
 done = 0
 
+#module to check if a specific port is open
 def port_checker(scan, port, protocol,done):
     if str(port)+"/tcp" in scan.stdout:
         print(str(protocol)+" port has been opened")
@@ -24,12 +26,11 @@ print("-" * 45)
 # scan for open port
 scan = subprocess.run("/usr/bin/nmap localhost", capture_output=True, text=True, shell=True)
 firewall_status = subprocess.run("sudo service firewalld status", capture_output=True, text=True, shell=True)
-#print(firewall_status.stderr)
 if "service: not found" in firewall_status.stderr:
     print("Try running this script with sudo")
     print("-" * 45)
     exit()
-
+#Check if firewalld is running
 if "Active: active (running)" not in firewall_status.stdout:
     print ("Firewalld is NOT running")
     print("-" * 45)
@@ -37,25 +38,17 @@ if "Active: active (running)" not in firewall_status.stdout:
 else:
     print("Firewalld service is running")
     done = done + 1
-
+#check if telnet is open
 if "23/tcp" in scan.stdout:
     print ("Telnet is not blocked by your firewall")
     print("-" * 45)
     exit()
-#Check SSH port 22
+    
+#dictionary of ports to be checked
 ports = {"SSH":22, "SMTP":25, "DNS":53, "HTTP":80, "IMAP":143, "SMB":445, "WEBMIN":10000}
-
+#for loop iterating through all those services and ports
 for key in ports:
     done = port_checker(scan, ports[key], key, done)
-
-#Check PC2 SSH port 2222
-# pc2scan = subprocess.run("nmap - p 2222 192.168.1.100", capture_output=True, text=True, shell=True)
-# if "0 hosts up" not in pc2scan.stdout:
-#     print("SSH port on second PC has been opened")
-#     done = done + 1
-# else:
-#    print("SSH port on second PC is NOT functional")
-
 
 
 completion()
