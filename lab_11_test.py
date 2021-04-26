@@ -8,6 +8,8 @@ def completion():
     print("-" * 45, "\n" "You have completed "+str(done)+" of "+str(total)+" tasks for this lab.")
     if done == total:
         print("Congratulations you have completed all tasks for this lab.", "\n", "-" * 45)
+    else:
+        print("-" * 45)
 
 done = 0
 total = 3
