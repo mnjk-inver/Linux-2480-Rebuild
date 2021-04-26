@@ -14,6 +14,8 @@ def completion():
     print("-" * 45, "\n" "You have completed", str(done), "out of 3 tasks for this lab!")
     if done == 3:
         print("Congratulations you have completed all tasks for this lab.", "\n", "-" * 45)
+    else:
+        print("-" * 45)
 
 # Look for ip in named.conf.options
 if "172.17.139.11" in bind_options.stdout:
