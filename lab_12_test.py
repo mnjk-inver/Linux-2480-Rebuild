@@ -12,6 +12,8 @@ def completion():
     print("-" * 45, "\n" "You have completed", str(done), "out of 5 tasks for this lab!")
     if done == 5:
         print("Congratulations you have completed all tasks for this lab.", "\n", "-" * 45)
+    else:
+        print("-" * 45)
 
 done = 0
 
